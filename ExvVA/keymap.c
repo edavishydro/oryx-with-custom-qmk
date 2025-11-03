@@ -7,11 +7,6 @@
 
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
-  GR_APOS,  // Graphite apostrophe: ' unshifted, _ shifted
-  GR_COMM,  // Graphite comma: , unshifted, ? shifted
-  GR_MINS,  // Graphite minus: - unshifted, " shifted
-  GR_DOT,   // Graphite dot: . unshifted, > shifted
-  GR_SLSH,  // Graphite slash: / unshifted, < shifted
 };
 
 
@@ -21,10 +16,10 @@ enum tap_dance_codes {
   DANCE_2,
 };
 
-#define DUAL_FUNC_0 LT(6, KC_P)
-#define DUAL_FUNC_1 LT(4, KC_F5)
-#define DUAL_FUNC_2 LT(5, KC_O)
-#define DUAL_FUNC_3 LT(9, KC_7)
+#define DUAL_FUNC_0 LT(6, KC_6)
+#define DUAL_FUNC_1 LT(6, KC_9)
+#define DUAL_FUNC_2 LT(2, KC_S)
+#define DUAL_FUNC_3 LT(11, KC_F15)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ergodox_pretty(
@@ -58,8 +53,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_WWW_BACK
   ),
   [3] = LAYOUT_ergodox_pretty(
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,           KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_EQUAL,
+    KC_GRAVE,       KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,           KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_SCLN,
     KC_TRANSPARENT, KC_N,           KC_R,           KC_T,           MT(MOD_LSFT, KC_S),KC_G,                                                                           KC_Y,           MT(MOD_RSFT, KC_H),KC_A,           KC_E,           KC_I,           KC_COMMA,
     KC_TRANSPARENT, KC_Q,           KC_X,           KC_M,           KC_C,           KC_V,           KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_K,           KC_P,           KC_DOT,         KC_MINUS,       KC_SLASH,       KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
@@ -354,72 +349,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           unregister_code16(KC_RCBR);
         }  
       }  
-      return false;
-    case GR_APOS:  // ' unshifted, _ shifted
-      if (record->event.pressed) {
-        if (get_mods() & MOD_MASK_SHIFT) {
-          unregister_mods(MOD_MASK_SHIFT);
-          register_code16(KC_UNDS);
-          set_mods(get_mods() | MOD_MASK_SHIFT);
-        } else {
-          register_code16(KC_QUOTE);
-        }
-      } else {
-        unregister_code16(KC_UNDS);
-        unregister_code16(KC_QUOTE);
-      }
-      return false;
-    case GR_COMM:  // , unshifted, ? shifted
-      if (record->event.pressed) {
-        if (get_mods() & MOD_MASK_SHIFT) {
-          unregister_mods(MOD_MASK_SHIFT);
-          register_code16(KC_QUES);
-          set_mods(get_mods() | MOD_MASK_SHIFT);
-        } else {
-          register_code16(KC_COMM);
-        }
-      } else {
-        unregister_code16(KC_QUES);
-        unregister_code16(KC_COMM);
-      }
-      return false;
-    case GR_MINS:  // - unshifted, " shifted
-      if (record->event.pressed) {
-        if (get_mods() & MOD_MASK_SHIFT) {
-          unregister_mods(MOD_MASK_SHIFT);
-          register_code16(KC_DQUO);
-          set_mods(get_mods() | MOD_MASK_SHIFT);
-        } else {
-          register_code16(KC_MINS);
-        }
-      } else {
-        unregister_code16(KC_DQUO);
-        unregister_code16(KC_MINS);
-      }
-      return false;
-    case GR_DOT:   // . unshifted, > shifted
-      if (record->event.pressed) {
-        if (get_mods() & MOD_MASK_SHIFT) {
-          register_code16(KC_GT);
-        } else {
-          register_code16(KC_DOT);
-        }
-      } else {
-        unregister_code16(KC_GT);
-        unregister_code16(KC_DOT);
-      }
-      return false;
-    case GR_SLSH:  // / unshifted, < shifted
-      if (record->event.pressed) {
-        if (get_mods() & MOD_MASK_SHIFT) {
-          register_code16(KC_LT);
-        } else {
-          register_code16(KC_SLSH);
-        }
-      } else {
-        unregister_code16(KC_LT);
-        unregister_code16(KC_SLSH);
-      }
       return false;
     case RGB_SLD:
       if (record->event.pressed) {
