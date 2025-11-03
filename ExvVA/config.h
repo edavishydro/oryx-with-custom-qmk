@@ -2,7 +2,10 @@
 #define PERMISSIVE_HOLD
 #define USB_SUSPEND_WAKEUP_DELAY 0
 #define CAPS_LOCK_STATUS
-#define SERIAL_NUMBER "ExvVA/lb9aaa"
+// Serial number changed to prevent Keymapp from trying to sync with cloud config
+// Original was: "ExvVA/lb9aaa" (Oryx layout ID format)
+// Changed to generic format that won't trigger Oryx lookup
+#define SERIAL_NUMBER "01234567"
 #define LAYER_STATE_8BIT
 
 #define RGB_MATRIX_STARTUP_SPD 60
