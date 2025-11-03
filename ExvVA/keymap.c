@@ -7,6 +7,11 @@
 
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
+  GR_APOS,  // Graphite apostrophe: ' unshifted, _ shifted
+  GR_COMM,  // Graphite comma: , unshifted, ? shifted
+  GR_MINS,  // Graphite minus: - unshifted, " shifted
+  GR_DOT,   // Graphite dot: . unshifted, > shifted
+  GR_SLSH,  // Graphite slash: / unshifted, < shifted
 };
 
 
@@ -54,9 +59,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [3] = LAYOUT_ergodox_pretty(
     KC_ESCAPE,      KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           TG(3),                                          TG(2),          KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_LBRC,
-    TD(DANCE_0),    KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,           KC_TRANSPARENT,                                 LGUI(LCTL(LSFT(KC_4))),KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_SCLN,
-    KC_LEFT_CTRL,   KC_N,           KC_R,           KC_T,           MT(MOD_LSFT, KC_S),KC_G,                                                                       KC_Y,           MT(MOD_RSFT, KC_H),KC_A,           KC_E,           KC_I,           KC_COMMA,
-    SC_LSPO,        KC_Q,           KC_X,           KC_M,           KC_C,           KC_V,           KC_TILD,                                        TD(DANCE_2),    KC_K,           KC_P,           KC_DOT,         KC_MINUS,       KC_SLASH,       SC_RSPC,
+    TD(DANCE_0),    KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,           KC_TRANSPARENT,                                 LGUI(LCTL(LSFT(KC_4))),GR_APOS,        KC_F,           KC_O,           KC_U,           KC_J,           KC_SCLN,
+    KC_LEFT_CTRL,   KC_N,           KC_R,           KC_T,           KC_S,           KC_G,                                                                           KC_Y,           KC_H,           KC_A,           KC_E,           KC_I,           GR_COMM,
+    SC_LSPO,        KC_Q,           KC_X,           KC_M,           KC_C,           KC_V,           KC_TILD,                                        TD(DANCE_2),    KC_K,           KC_P,           GR_DOT,         GR_MINS,        GR_SLSH,        SC_RSPC,
     KC_GRAVE,       KC_MEDIA_PLAY_PAUSE,KC_LEFT_ALT,    KC_LEFT,        KC_RIGHT,                                                                                                       KC_UP,          KC_DOWN,        DUAL_FUNC_2,    DUAL_FUNC_3,    LGUI(LCTL(KC_SPACE)),
                                                                                                     LT(1, KC_AUDIO_VOL_DOWN),LGUI(LSFT(KC_LBRC)),LGUI(LSFT(KC_RBRC)),LT(2, KC_AUDIO_VOL_UP),
                                                                                                                     MT(MOD_LCTL, KC_DELETE),MT(MOD_LGUI | MOD_LSFT, KC_PAGE_UP),
@@ -349,6 +354,72 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           unregister_code16(KC_RCBR);
         }  
       }  
+      return false;
+    case GR_APOS:  // ' unshifted, _ shifted
+      if (record->event.pressed) {
+        if (get_mods() & MOD_MASK_SHIFT) {
+          unregister_mods(MOD_MASK_SHIFT);
+          register_code16(KC_UNDS);
+          set_mods(get_mods() | MOD_MASK_SHIFT);
+        } else {
+          register_code16(KC_QUOTE);
+        }
+      } else {
+        unregister_code16(KC_UNDS);
+        unregister_code16(KC_QUOTE);
+      }
+      return false;
+    case GR_COMM:  // , unshifted, ? shifted
+      if (record->event.pressed) {
+        if (get_mods() & MOD_MASK_SHIFT) {
+          unregister_mods(MOD_MASK_SHIFT);
+          register_code16(KC_QUES);
+          set_mods(get_mods() | MOD_MASK_SHIFT);
+        } else {
+          register_code16(KC_COMM);
+        }
+      } else {
+        unregister_code16(KC_QUES);
+        unregister_code16(KC_COMM);
+      }
+      return false;
+    case GR_MINS:  // - unshifted, " shifted
+      if (record->event.pressed) {
+        if (get_mods() & MOD_MASK_SHIFT) {
+          unregister_mods(MOD_MASK_SHIFT);
+          register_code16(KC_DQUO);
+          set_mods(get_mods() | MOD_MASK_SHIFT);
+        } else {
+          register_code16(KC_MINS);
+        }
+      } else {
+        unregister_code16(KC_DQUO);
+        unregister_code16(KC_MINS);
+      }
+      return false;
+    case GR_DOT:   // . unshifted, > shifted
+      if (record->event.pressed) {
+        if (get_mods() & MOD_MASK_SHIFT) {
+          register_code16(KC_GT);
+        } else {
+          register_code16(KC_DOT);
+        }
+      } else {
+        unregister_code16(KC_GT);
+        unregister_code16(KC_DOT);
+      }
+      return false;
+    case GR_SLSH:  // / unshifted, < shifted
+      if (record->event.pressed) {
+        if (get_mods() & MOD_MASK_SHIFT) {
+          register_code16(KC_LT);
+        } else {
+          register_code16(KC_SLSH);
+        }
+      } else {
+        unregister_code16(KC_LT);
+        unregister_code16(KC_SLSH);
+      }
       return false;
     case RGB_SLD:
       if (record->event.pressed) {
