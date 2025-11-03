@@ -24,7 +24,7 @@ enum tap_dance_codes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ergodox_pretty(
     KC_ESCAPE,      KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           TG(1),                                          TG(2),          KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINUS,
-    TD(DANCE_0),    KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_TRANSPARENT,                                 LGUI(LCTL(LSFT(KC_4))),KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLS,
+    TD(DANCE_0),    KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           TG(3),                                          LGUI(LCTL(LSFT(KC_4))),KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLS,
     KC_LEFT_CTRL,   KC_A,           KC_S,           KC_D,           MT(MOD_LSFT, KC_F),KC_G,                                                                           MT(MOD_RSFT, KC_H),KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOTE,
     SC_LSPO,        KC_Z,           DUAL_FUNC_0,    DUAL_FUNC_1,    TD(DANCE_1),    KC_B,           KC_TILD,                                        TD(DANCE_2),    KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       SC_RSPC,
     KC_GRAVE,       KC_MEDIA_PLAY_PAUSE,KC_LEFT_ALT,    KC_LEFT,        KC_RIGHT,                                                                                                       KC_UP,          KC_DOWN,        DUAL_FUNC_2,    DUAL_FUNC_3,    LGUI(LCTL(KC_SPACE)),
@@ -51,6 +51,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_WWW_BACK
+  ),
+  [3] = LAYOUT_ergodox_pretty(
+    KC_ESCAPE,      KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           TG(3),                                          TG(2),          KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_LBRC,
+    TD(DANCE_0),    KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,           KC_TRANSPARENT,                                 LGUI(LCTL(LSFT(KC_4))),KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_SCLN,
+    KC_LEFT_CTRL,   KC_N,           KC_R,           KC_T,           MT(MOD_LSFT, KC_S),KC_G,                                                                       KC_Y,           MT(MOD_RSFT, KC_H),KC_A,           KC_E,           KC_I,           KC_COMMA,
+    SC_LSPO,        KC_Q,           KC_X,           KC_M,           KC_C,           KC_V,           KC_TILD,                                        TD(DANCE_2),    KC_K,           KC_P,           KC_DOT,         KC_MINUS,       KC_SLASH,       SC_RSPC,
+    KC_GRAVE,       KC_MEDIA_PLAY_PAUSE,KC_LEFT_ALT,    KC_LEFT,        KC_RIGHT,                                                                                                       KC_UP,          KC_DOWN,        DUAL_FUNC_2,    DUAL_FUNC_3,    LGUI(LCTL(KC_SPACE)),
+                                                                                                    LT(1, KC_AUDIO_VOL_DOWN),LGUI(LSFT(KC_LBRC)),LGUI(LSFT(KC_RBRC)),LT(2, KC_AUDIO_VOL_UP),
+                                                                                                                    MT(MOD_LCTL, KC_DELETE),MT(MOD_LGUI | MOD_LSFT, KC_PAGE_UP),
+                                                                                    MT(MOD_LGUI, KC_TAB),KC_BSPC,        MT(MOD_LGUI, KC_ENTER),MT(MOD_LGUI | MOD_LSFT, KC_EQUAL),KC_ENTER,       KC_SPACE
   ),
 };
 
